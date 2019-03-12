@@ -1,0 +1,47 @@
+eurofx <- read.csv("C:/Users/User/Desktop/stats/stat443/eurofx.txt", sep="")
+
+plot(eurofx$fxrate, type = "l")
+
+pacf(eurofx$fxrate)
+
+dfx<-diff(eurofx$fxrate)
+plot(dfx, type="l")
+
+acf(dfx)
+pacf(dfx)  
+
+model1<-arima(dfx,order = c(2,0,0), method = "CSS")
+mod1phi1<-model1$coef[[1]]
+mod1phi2<-model1$coef[[2]]
+mod1insamp<-sqrt(mean((model1$residuals)^2))
+
+model2<-arima(dfx, order = c(0,0,2))
+mod2phi1<-model2$coef[[1]]
+mod2phi2<-model2$coef[[2]]
+mod2insamp<-sqrt(mean((model2$residuals)^2))
+
+model3<-arima(dfx, order = c(1,0,1), method = "CSS")
+mod3phi1<-model3$coef[[1]]
+mod3phi2<-model3$coef[[2]]
+mod3insamp<-sqrt(mean((model3$residuals)^2))
+
+model4<-arima(eurofx$fxrate, order = c(2,1,0), method = "CSS")
+mod4phi1<-model4$coef[[1]]
+mod4phi2<-model4$coef[[2]]
+mod4insamp<-sqrt(mean((model4$residuals)^2))
+
+model5<-arima(eurofx$fxrate, order = c(0,1,2), method = "CSS")
+mod5phi1<-model5$coef[[1]]
+mod5phi2<-model5$coef[[2]]
+mod5insamp<-sqrt(mean((model5$residuals)^2))
+
+model6<-arima(eurofx$fxrate, order = c(1,1,1), method = "CSS")
+mod6phi1<-model6$coef[[1]]
+mod6phi2<-model6$coef[[2]]
+mod6insamp<-sqrt(mean((model6$residuals)^2))
+
+
+predict(model1, n.ahead = 2)
+predict(model4, n.ahead = 2)
+
+
