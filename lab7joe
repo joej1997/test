@@ -44,4 +44,5 @@ mod6insamp<-sqrt(mean((model6$residuals)^2))
 predict(model1, n.ahead = 2)
 predict(model4, n.ahead = 2)
 
+#here are some changes
 
